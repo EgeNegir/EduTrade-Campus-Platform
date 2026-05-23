@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İlan Düzenle - EduTrade</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #f6f1eb; font-family: 'Outfit', sans-serif; color: #2e3d2c; }
+        h1, h2, h3, h4, .serif-font { font-family: 'Playfair Display', serif; color: #2e3d2c; }
+        .navbar { background-color: #ffffff !important; border-bottom: 1px solid #e6dfd5; }
+        .navbar-brand { font-family: 'Playfair Display', serif; font-weight: 700; color: #2e3d2c !important; letter-spacing: 1px; }
+        .form-card { background-color: #ffffff; border: 1px solid #e6dfd5; border-radius: 0px; }
+        .form-control, .form-select { border-radius: 0px; background-color: #faf8f5; border: 1px solid #d8d3cd; padding: 12px 15px; color: #2e3d2c; }
+        .form-control:focus, .form-select:focus { border-color: #2e3d2c; box-shadow: none; background-color: #ffffff; }
+        .btn-custom-primary { background-color: #2e3d2c; color: white; border-radius: 0px; padding: 12px 35px; font-weight: 600; letter-spacing: 1px; border: 1px solid #2e3d2c; transition: all 0.3s; }
+        .btn-custom-primary:hover { background-color: #1f2a1e; border-color: #1f2a1e; color: white; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg py-3">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="images/logoi.png" alt="EduTrade Logo" width="35" class="me-2"> EduTrade
+            </a>
+            <div class="ms-auto" id="userMenu"></div>
+        </div>
+    </nav>
+
+    <div class="container my-5 py-3">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="form-card shadow-sm p-4 p-md-5">
+                    <h2 class="serif-font fw-bold mb-2">İlanı Düzenle</h2>
+                    <p class="text-muted mb-5">İlan bilgilerini veya fotoğraflarını buradan güncelleyebilirsin.</p>
+                    
+                    <form id="duzenleForm">
+                        <div class="mb-4">
+                            <label class="form-label fw-medium text-dark" style="font-size: 0.9rem;">İLAN BAŞLIĞI</label>
+                            <input type="text" class="form-control" id="baslik" name="baslik" required>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-4 mb-md-0">
+                                <label class="form-label fw-medium text-dark" style="font-size: 0.9rem;">KATEGORİ</label>
+                                <select class="form-select" id="kategori" name="kategori" required>
+                                    <option value="Kitap / Not">Kitap / Not</option>
+                                    <option value="Elektronik">Elektronik</option>
+                                    <option value="Özel Ders">Özel Ders</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-medium text-dark" style="font-size: 0.9rem;">TAKAS KARŞILIĞI</label>
+                                <input type="text" class="form-control" id="takas_istegi" name="takas_istegi" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-medium text-dark" style="font-size: 0.9rem;">İLAN AÇIKLAMASI</label>
+                            <textarea class="form-control" id="aciklama" name="aciklama" rows="4" required></textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-medium text-dark" style="font-size: 0.9rem;">MEVCUT FOTOĞRAFLAR</label>
+                            <div id="mevcutResimlerKutusu" class="d-flex flex-wrap gap-3">
+                                </div>
+                        </div>
+
+                        <div class="mb-5">
+                            <label class="form-label fw-medium text-dark" style="font-size: 0.9rem;">YENİ FOTOĞRAF EKLE (Varsa)</label>
+                            <input type="file" class="form-control" id="fotograflar" name="fotograflar" accept="image/*" multiple>
+                            <div class="form-text text-muted">Aynı anda en fazla 3 fotoğraf bulunabilir. Eklemek istemiyorsanız boş bırakın.</div>
+                        </div>
+
+                        <button type="submit" class="btn btn-custom-primary w-100 py-3 fw-bold">DEĞİŞİKLİKLERİ KAYDET</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // URL'den ilanın ID'sini çekiyoruz 
+        const urlParams = new URLSearchParams(window.location.search);
+        const ilanId = urlParams.get('id');
+
+        document.addEventListener("DOMContentLoaded", async function() {
+            const kullanici = localStorage.getItem('kullaniciAdSoyad');
+            if (!kullanici) {
+                window.location.href = "/giris.html";
+                return;
+            }
+            document.getElementById('userMenu').innerHTML = `
+                <span class="fw-bold serif-font" style="font-size: 1.1rem; color: #2e3d2c;">👋 ${kullanici}</span>
+            `;
+
+            if(!ilanId) {
+                alert("Geçersiz ilan ID'si!");
+                window.location.href = "index.html";
+                return;
+            }
+
+            // Sayfa açıldığında ilanın eski bilgilerini veritabanından çekip form kutucuklarına dolduruyoruz
+            try {
+                const response = await fetch(`/api/ilanlar/${ilanId}`);
+                if (!response.ok) throw new Error("İlan bulunamadı");
+                const ilan = await response.json();
+
+                // Sadece ilan sahibi düzenleyebilir güvenlik kontrolü
+                if (ilan.sahibi !== kullanici) {
+                    alert("Bu ilanı düzenleme yetkiniz yok!");
+                    window.location.href = "index.html";
+                    return;
+                }
+
+                document.getElementById('baslik').value = ilan.baslik;
+                document.getElementById('kategori').value = ilan.kategori;
+                document.getElementById('takas_istegi').value = ilan.takas_istegi;
+                document.getElementById('aciklama').value = ilan.aciklama;
+
+                // Eski resimleri ekrana basıyoruz
+                const resimKutusu = document.getElementById('mevcutResimlerKutusu');
+                if (ilan.resimler && ilan.resimler.length > 0) {
+                    ilan.resimler.forEach((resim, index) => {
+                        // Karta tıklandığında silinmesi için id veriyoruz
+                        const resimDivId = `resim-kutu-${index}`;
+                        resimKutusu.innerHTML += `
+                            <div class="position-relative" id="${resimDivId}" style="width: 100px; height: 100px;">
+                                <img src="${resim}" class="img-thumbnail w-100 h-100" style="object-fit: cover;">
+                                <input type="hidden" name="kalan_resimler" value="${resim}">
+                                <button type="button" onclick="resmiKaldir('${resimDivId}')" class="btn btn-sm btn-danger position-absolute top-0 end-0 py-0 px-1" style="transform: translate(30%, -30%); border-radius: 50%;">✖</button>
+                            </div>
+                        `;
+                    });
+                } else {
+                    resimKutusu.innerHTML = '<span class="text-muted small">Bu ilanda fotoğraf bulunmuyor.</span>';
+                }
+            } catch (err) {
+                console.error(err);
+                alert("İlan bilgileri çekilirken bir hata oluştu.");
+            }
+        });
+
+        // "✖ Kaldır" butonuna basıldığında fotoğrafı HTML'den ve gönderilecek listeden ucurur
+        function resmiKaldir(divId) {
+            document.getElementById(divId).remove();
+            
+            // Eğer hiç resim kalmadıysa bilgi mesajı göster
+            const resimKutusu = document.getElementById('mevcutResimlerKutusu');
+            if (resimKutusu.children.length === 0) {
+                resimKutusu.innerHTML = '<span class="text-muted small">Tüm fotoğrafları sildiniz. Yeni ekleyebilirsiniz.</span>';
+            }
+        }
+
+        // Form gönderilirken arka plana  verileri güncelleme olarak yollama
+        document.getElementById('duzenleForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Kalan eski resimler + Yeni yüklenen resimlerin toplamı 3'ü geçiyor mu diye front-end kontrolü
+            const kalanResimSayisi = document.querySelectorAll('input[name="kalan_resimler"]').length;
+            const yeniSecilenResimSayisi = document.getElementById('fotograflar').files.length;
+            
+            if (kalanResimSayisi + yeniSecilenResimSayisi > 3) {
+                alert("Hata: Toplamda en fazla 3 fotoğrafınız olabilir! Lütfen mevcut fotoğraflardan bazılarını silin veya daha az yeni fotoğraf seçin.");
+                return;
+            }
+
+            const formData = new FormData(this);
+
+            try {
+                const response = await fetch(`/api/ilanlar/${ilanId}`, {
+                    method: 'PUT',
+                    body: formData // Dosyaları ve metinleri birlikte yollar
+                });
+
+                if (response.ok) {
+                    alert("İlanın başarıyla güncellendi!");
+                    window.location.href = "index.html";
+                } else {
+                    const hataMesaji = await response.text();
+                    alert(hataMesaji);
+                }
+            } catch (err) {
+                console.error("Güncelleme hatası:", err);
+                alert("İlan güncellenirken bir hata oluştu.");
+            }
+        });
+    </script>
+</body>
+</html>

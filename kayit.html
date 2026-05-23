@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayıt Ol - EduTrade</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /*Temel Tasarım Stilleri */
+        body {
+            background-color: #f6f1eb; 
+            font-family: 'Outfit', sans-serif;
+            color: #2e3d2c;
+        }
+        h1, h2, h3, h4, .serif-font {
+            font-family: 'Playfair Display', serif;
+            color: #2e3d2c;
+        }
+
+        /* Kart Yapısı  */
+        .login-card {
+            background-color: #ffffff;
+            border-radius: 20px; 
+            overflow: hidden;
+        }
+
+        
+        .login-side-panel {
+            width: 90%; 
+            margin: 5% auto; 
+            border-radius: 20px;
+            background-image: url('images/kampus.jpg');
+            background-size: cover;
+            background-position: center;
+            min-height: calc(100% - 10%); 
+            position: relative;
+            box-shadow: 0 10px 30px rgba(46, 61, 44, 0.1);
+        }
+        
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border-radius: 0 0 20px 20px;
+            background: linear-gradient(to top, rgba(46, 61, 44, 0.95), transparent);
+            padding: 30px;
+            color: #f6f1eb;
+            text-align: center;
+        }
+        
+        /* --- Buton ve Link Stilleri --- */
+        .custom-btn {
+            background-color: #2e3d2c;
+            color: white;
+            border-radius: 0px; 
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+        .custom-btn:hover {
+            background-color: #1f2a1e;
+            color: white;
+        }
+        .custom-link {
+            color: #2e3d2c;
+            text-decoration: none;
+            border-bottom: 1px solid #2e3d2c;
+        }
+        .custom-link:hover {
+            color: #1f2a1e;
+            border-bottom: 2px solid #1f2a1e;
+        }
+        
+        /* Form Input Stilleri */
+        .form-control {
+            border-radius: 0px;
+            background-color: #faf8f5;
+            border: 1px solid #d8d3cd;
+            padding: 12px 15px;
+        }
+        .form-control:focus {
+            border-color: #2e3d2c;
+            box-shadow: none;
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body class="d-flex align-items-center" style="min-height: 100vh;">
+
+    <div class="container py-4">
+        <div class="row login-card shadow-sm mx-auto p-2 p-md-3" style="max-width: 1000px;">
+            
+            <div class="col-md-6 d-none d-md-block p-0">
+                <div class="login-side-panel">
+                    <div class="image-overlay">
+                        <p class="mb-1" style="font-family: 'Outfit', sans-serif; font-weight: 300; letter-spacing: 1px;">SADECE İNÖNÜ ÜNİVERSİTESİ ÖĞRENCİLERİ</p>
+                        <h2 class="fw-bold mb-0 text-white serif-font" style="font-size: 2rem;">Kampüs Ağına<br>Katıl.</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 px-4 px-md-5 py-5 d-flex flex-column justify-content-center">
+                
+                <div class="text-end mb-4">
+                    <a href="index.html" class="text-decoration-none">
+                        <h3 class="serif-font fw-bold mb-0" style="letter-spacing: 1px;">EduTrade</h3>
+                    </a>
+                </div>
+
+                <h2 class="fw-bold mb-2 serif-font">Yeni Hesap Oluştur</h2>
+                <p class="text-muted mb-4" style="font-size: 0.9rem;">EduTrade'e katılmak için @ogr.inonu.edu.tr e-postanızı doğrulamanız gerekmektedir.</p>
+
+                <form id="kayitForm1">
+                    <div class="mb-3">
+                        <label class="form-label fw-medium text-dark small">AD SOYAD</label>
+                        <input type="text" class="form-control" id="ad_soyad" placeholder="Adınız ve Soyadınız" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-medium text-dark small">ÖĞRENCİ E-POSTASI</label>
+                        <input type="email" class="form-control" id="email" placeholder="ornek@ogr.inonu.edu.tr" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label fw-medium text-dark small">ŞİFRE BELİRLE</label>
+                        <input type="password" class="form-control" id="sifre" placeholder="••••••••" required>
+                    </div>
+
+                    <button type="submit" id="kodGonderBtn" class="btn custom-btn w-100 py-3 fw-bold mb-4">DOĞRULAMA KODU GÖNDER</button>
+                </form>
+
+                <form id="kayitForm2" class="d-none">
+                    <div class="alert alert-success small mb-4" role="alert" style="border-radius: 0px;">
+                        Doğrulama kodu gönderildi. Lütfen e-postanızı kontrol edin (Test için terminale bakın).
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label fw-medium text-dark small">6 HANELİ ONAY KODU</label>
+                        <input type="text" class="form-control text-center fw-bold fs-4" id="onay_kodu" maxlength="6" placeholder="------" required autocomplete="off">
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100 py-3 fw-bold mb-4" style="border-radius: 0px; letter-spacing: 1px;">KAYDI TAMAMLA</button>
+                </form>
+
+                <div class="text-center mt-2">
+                    <span class="text-muted small">Zaten bir hesabın var mı?</span> 
+                    <a href="giris.html" class="custom-link fw-bold small" style="margin-left: 5px;">Giriş Yap</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JS MANTIĞI: Kod Gönderme ve Kayıt Tamamlama
+        document.getElementById('kayitForm1').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const btn = document.getElementById('kodGonderBtn');
+            
+            if (!email.endsWith('@ogr.inonu.edu.tr')) {
+                alert("Sadece @ogr.inonu.edu.tr uzantılı mailler kayıt olabilir!");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerText = "GÖNDERİLİYOR...";
+
+            try {
+                const response = await fetch('/api/kayit-kod-gonder', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+
+                if (response.ok) {
+                    document.getElementById('kayitForm1').classList.add('d-none');
+                    document.getElementById('kayitForm2').classList.remove('d-none');
+                } else {
+                    alert(await response.text());
+                    btn.disabled = false;
+                    btn.innerText = "DOĞRULAMA KODU GÖNDER";
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Bir hata oluştu.");
+                btn.disabled = false;
+            }
+        });
+
+        document.getElementById('kayitForm2').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const ad_soyad = document.getElementById('ad_soyad').value;
+            const email = document.getElementById('email').value;
+            const sifre = document.getElementById('sifre').value;
+            const onay_kodu = document.getElementById('onay_kodu').value;
+
+            try {
+                const response = await fetch('/kayit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ad_soyad, email, sifre, onay_kodu })
+                });
+
+                if (response.ok) {
+                    alert("Kayıt başarılı! Giriş yapabilirsiniz.");
+                    window.location.href = "giris.html";
+                } else {
+                    alert(await response.text());
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Kayıt sırasında hata oluştu.");
+            }
+        });
+    </script>
+</body>
+</html>

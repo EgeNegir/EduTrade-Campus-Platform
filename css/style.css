@@ -1,0 +1,6 @@
+.custom-card-hover {
+    transition: transform 0.3s ease-in-out;
+}
+.custom-card-hover:hover {
+    transform: translateY(-10px);
+}

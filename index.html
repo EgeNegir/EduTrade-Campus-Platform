@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduTrade - Kampüs Takas Platformu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #f6f1eb; font-family: 'Outfit', sans-serif; color: #2e3d2c; }
+        h1, h2, h3, h4, .serif-font { font-family: 'Playfair Display', serif; color: #2e3d2c; }
+        .navbar { background-color: #ffffff !important; border-bottom: 1px solid #e6dfd5; }
+        .navbar-brand { font-family: 'Playfair Display', serif; font-weight: 700; color: #2e3d2c !important; letter-spacing: 1px; }
+        .nav-link { color: #5c645a !important; transition: color 0.3s; }
+        .nav-link:hover, .nav-link.active { color: #2e3d2c !important; font-weight: 600; }
+        .form-control { border-radius: 0px; background-color: #faf8f5; border: 1px solid #d8d3cd; padding: 10px 15px; }
+        .form-control:focus { border-color: #2e3d2c; box-shadow: none; background-color: #ffffff; }
+        .btn-custom-primary { background-color: #2e3d2c; color: white; border-radius: 0px; padding: 12px 35px; font-weight: 600; letter-spacing: 1px; border: 1px solid #2e3d2c; transition: all 0.3s; }
+        .btn-custom-primary:hover { background-color: #1f2a1e; border-color: #1f2a1e; color: white; }
+        .btn-custom-outline { background-color: #ffffff; color: #2e3d2c; border-radius: 0px; padding: 12px 35px; font-weight: 600; letter-spacing: 1px; border: 1px solid #2e3d2c; transition: all 0.3s; }
+        .btn-custom-outline:hover { background-color: #f6f1eb; color: #1f2a1e; border-color: #1f2a1e; }
+        .campus-circle { width: 360px; height: 360px; border-radius: 50%; overflow: hidden; margin: 0 auto; box-shadow: 0 10px 30px rgba(46, 61, 44, 0.1); border: 3px dashed #2e3d2c; }
+        .campus-circle img { width: 100%; height: 100%; object-fit: cover; }
+        .category-card { background-color: #ffffff; border: 1px solid #e6dfd5; border-radius: 0px; padding: 30px 20px; transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
+        .category-card:hover { transform: translateY(-5px); box-shadow: 0 12px 25px rgba(46, 61, 44, 0.06); border-color: #2e3d2c; }
+        .category-frame { border: 6px solid #c2b7ad; width: 110px; height: 110px; margin: 0 auto 20px auto; display: flex; align-items: center; justify-content: center; background-color: #faf8f5; font-size: 2.5rem; transition: all 0.3s; }
+        .category-card:hover .category-frame { border-color: #2e3d2c; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg py-3">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="images/logoi.png" alt="EduTrade Logo" width="85" class="me-2"> EduTrade
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="border: none;">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-medium">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Ana Sayfa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#bilgiModal">Nasıl Çalışır?</a></li>
+                </ul>
+                <form class="d-flex me-3" id="aramaFormu">
+                    <input class="form-control me-2" type="search" id="aramaInput" placeholder="Eşya veya yetenek ara..." aria-label="Search" required>
+                    <button class="btn btn-custom-primary py-2 px-3" type="submit" style="font-size: 0.9rem;">ARA</button>
+                </form>
+                <div id="userMenu">
+                    <a href="giris.html" class="btn btn-custom-primary py-2 px-4 shadow-sm" style="font-size: 0.9rem;">GİRİŞ / KAYIT</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="container my-5 py-3">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <h1 class="display-5 fw-bold mb-3" style="line-height: 1.2;">Bütçene Değer Kat,<br>Kampüste Yardımlaşmayı Başlat.</h1>
+                <p class="lead text-muted mb-4" style="font-size: 1.05rem; font-weight: 300; line-height: 1.7;">Elden ele, sınıftan sınıfa dayanışma ağı. Kullanmadığın materyalleri israf etme, kampüs ekonomisine kazandır. Sadece <b>@inonu.edu.tr</b> e-postalarına özel.</p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="ilan-ver.html" class="btn btn-custom-primary">İLAN VER</a>
+                    <button type="button" class="btn btn-custom-outline" data-bs-toggle="modal" data-bs-target="#bilgiModal">BİLGİ</button>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="campus-circle">
+                    <img src="images/kampus.jpg" alt="İnönü Kampüs">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="container my-5 py-4">
+        <div class="row g-4 text-center">
+            <div class="col-md-4">
+                <div class="category-card shadow-sm h-100" onclick="kategoriFiltrele('Kitap / Not')">
+                    <div class="category-frame">📚</div>
+                    <h4 class="fw-bold mb-2">KİTAP / NOT</h4>
+                    <p class="text-muted mb-0" style="font-size: 0.9rem;">Ders kitapları, çıkmış sorular,ders özetleri vb. materyallerin takası.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="category-card shadow-sm h-100" onclick="kategoriFiltrele('Elektronik')">
+                    <div class="category-frame">💻</div>
+                    <h4 class="fw-bold mb-2">ELEKTRONİK</h4>
+                    <p class="text-muted mb-0" style="font-size: 0.9rem;">Arduino setleri, mühendislik hesap makineleri,kulaklık vb. eşyaların takası.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="category-card shadow-sm h-100" onclick="kategoriFiltrele('Özel Ders')">
+                    <div class="category-frame">🦉</div>
+                    <h4 class="fw-bold mb-2">ÖZEL DERS</h4>
+                    <p class="text-muted mb-0" style="font-size: 0.9rem;">Matematik, İngilizce , yazılım vb. alanlarda yetenek değişimi.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container my-5 py-2">
+        <div class="mb-4 d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="serif-font fw-bold mb-0" id="ilanlarBaslik">Kampüsteki Son İlanlar</h2>
+                <hr style="width: 50px; height: 3px; background-color: #2e3d2c; opacity: 1; border: none; margin-top: 15px;">
+            </div>
+            <button id="filtreTemizleBtn" onclick="window.location.reload()" class="btn btn-sm btn-custom-outline d-none">Filtreyi Temizle ✖</button>
+        </div>
+        <div class="row g-4" id="ilanlarKonteyner">
+            <div class="col-12 text-center py-5" id="ilanYukleniyor">
+                <p class="text-muted" style="font-style: italic;">Henüz aktif ilan bulunmuyor veya ilanlar yükleniyor...</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-center py-4 mt-5 border-top" style="background-color: #ffffff; border-color: #e6dfd5 !important;">
+        <p class="text-muted mb-0" style="font-size: 0.9rem; letter-spacing: 0.5px;">EduTrade &copy; 2026 - İnönü Üniversitesi Kampüsü Yardımlaşma Platformu</p>
+    </footer>
+
+    <div class="modal fade" id="bilgiModal" tabindex="-1" aria-labelledby="bilgiModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 0px; border: none;">
+                <div class="modal-header" style="background-color: #f6f1eb; border-bottom: 1px solid #e6dfd5;">
+                    <h5 class="modal-title serif-font fw-bold" id="bilgiModalLabel" style="color: #2e3d2c;">EduTrade Nasıl Çalışır?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="d-flex mb-4">
+                        <div class="fs-3 me-3">🎓</div>
+                        <div>
+                            <h6 class="fw-bold mb-1">1. Sadece Öğrenciler</h6>
+                            <p class="text-muted small mb-0">Platforma yalnızca inonu.edu.tr uzantılı e-posta adresiyle kayıt olunabilir. Bu sayede güvenli bir kampüs ağı sağlanır.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-4">
+                        <div class="fs-3 me-3">🔄</div>
+                        <div>
+                            <h6 class="fw-bold mb-1">2. İlan Ver veya Ara</h6>
+                            <p class="text-muted small mb-0">İhtiyacın olmayan bir kitabı, notu veya eşyayı sisteme ekle. Karşılığında ne istediğini (takas şartını) belirt.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="fs-3 me-3">🤝</div>
+                        <div>
+                            <h6 class="fw-bold mb-1">3. Kampüste Buluş</h6>
+                            <p class="text-muted small mb-0">İlanını beğenen kişi "İletişime Geç" butonuyla sana e-posta atar. Kampüs içinde buluşup takası gerçekleştirirsiniz.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="border-top: none;">
+                    <button type="button" class="btn btn-custom-primary w-100" data-bs-dismiss="modal">Anladım</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const kullanici = localStorage.getItem('kullaniciAdSoyad');
+            const userMenu = document.getElementById('userMenu');
+
+            if (kullanici) {
+                userMenu.innerHTML = `
+                    <div class="d-flex align-items-center">
+                        <span class="me-3 fw-bold serif-font" style="font-size: 1.1rem; color: #2e3d2c; white-space: nowrap;">👋 Merhaba, ${kullanici}</span>
+                        <button onclick="cikisYap()" class="btn btn-custom-outline py-2 px-3 shadow-sm" style="font-size: 0.9rem;">ÇIKIŞ YAP</button>
+                    </div>
+                `;
+            }
+            ilanlariGetir(); 
+        });
+
+        document.getElementById('aramaFormu').addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            const kelime = document.getElementById('aramaInput').value;
+            ilanlariGetir(kelime); 
+            document.getElementById('ilanlarKonteyner').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+
+        function kategoriFiltrele(kategoriAdi) {
+            document.getElementById('aramaInput').value = kategoriAdi;
+            ilanlariGetir(kategoriAdi);
+            document.getElementById('ilanlarKonteyner').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        async function ilanlariGetir(aramaKelimesi = '') {
+            try {
+                let fetchUrl = '/api/ilanlar';
+                const baslik = document.getElementById('ilanlarBaslik'); 
+                const temizleBtn = document.getElementById('filtreTemizleBtn');
+                
+                if (aramaKelimesi !== '') {
+                    fetchUrl = `/api/ilanlar/ara?q=${encodeURIComponent(aramaKelimesi)}`;
+                    baslik.innerText = `"${aramaKelimesi}" Sonuçları`;
+                    temizleBtn.classList.remove('d-none'); 
+                } else {
+                    baslik.innerText = "Kampüsteki Son İlanlar";
+                    temizleBtn.classList.add('d-none'); 
+                }
+
+                const response = await fetch(fetchUrl);
+                const ilanlar = await response.json();
+                const konteyner = document.getElementById('ilanlarKonteyner');
+                const aktifKullanici = localStorage.getItem('kullaniciAdSoyad'); 
+                
+                konteyner.innerHTML = ''; 
+                
+                if(ilanlar.length > 0) {
+                    ilanlar.forEach(ilan => {
+                        let aksiyonButonuHTML = '';
+                      
+                        if (aktifKullanici === ilan.sahibi) {
+                            aksiyonButonuHTML = `
+                                <div class="btn-group shadow-sm" role="group">
+                                    <a href="ilan-duzenle.html?id=${ilan.id}" class="btn btn-sm btn-outline-secondary fw-bold" style="border-radius: 0px; font-size: 0.75rem;">
+                                        ✏️ DÜZENLE
+                                    </a>
+                                    <button onclick="ilanSil(${ilan.id})" class="btn btn-sm btn-outline-danger fw-bold" style="border-radius: 0px; font-size: 0.75rem;">
+                                        🗑️ SİL
+                                    </button>
+                                </div>
+                            `;
+                        } else {
+                            aksiyonButonuHTML = `
+                                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=${ilan.sahibi_email}&su=${encodeURIComponent('EduTrade - ' + ilan.baslik + ' İlanı Hakkında')}" target="_blank" class="btn btn-sm btn-custom-primary fw-bold" style="border-radius: 0px; font-size: 0.75rem; padding: 5px 10px;">
+                                    ✉️ İLETİŞİME GEÇ
+                                </a>
+                            `;
+                        }
+
+                        // BURASI KESİN ÇÖZÜM: Inline CSS ile zorunlu boyutlandırma
+                        let resimVitrinHTML = '';
+                        if (ilan.resimler && ilan.resimler.length > 0) {
+                            let carouselItems = '';
+                            ilan.resimler.forEach((resim, idx) => {
+                                carouselItems += `
+                                    <div class="carousel-item ${idx === 0 ? 'active' : ''}">
+                                        <img src="${resim}" class="d-block w-100" style="height: 240px !important; object-fit: cover !important; object-position: center !important;" alt="İlan Resmi">
+                                    </div>
+                                `;
+                            });
+
+                            let oklarHTML = '';
+                            if (ilan.resimler.length > 1) {
+                                oklarHTML = `
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel-${ilan.id}" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Geri</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carousel-${ilan.id}" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">İleri</span>
+                                    </button>
+                                `;
+                            }
+
+                            resimVitrinHTML = `
+                                <div id="carousel-${ilan.id}" class="carousel slide" data-bs-ride="false" style="border-bottom: 1px solid #e6dfd5; background-color: #faf8f5;">
+                                    <div class="carousel-inner">
+                                        ${carouselItems}
+                                    </div>
+                                    ${oklarHTML}
+                                </div>
+                            `;
+                        } else {
+                            resimVitrinHTML = `
+                                <div class="d-flex align-items-center justify-content-center text-muted" style="height: 240px !important; width: 100%; background-color: #faf8f5; border-bottom: 1px solid #e6dfd5;">
+                                    <span style="font-size: 0.9rem; font-style: italic;">📷 Fotoğraf Eklenmedi</span>
+                                </div>
+                            `;
+                        }
+
+                        konteyner.innerHTML += `
+                            <div class="col-md-4">
+                                <div class="card h-100 shadow-sm border-0 bg-white" style="border-radius: 0px; border: 1px solid #e6dfd5 !important; overflow: hidden;">
+                                    ${resimVitrinHTML}
+                                    
+                                    <div class="card-body p-4 d-flex flex-column justify-content-between">
+                                        <div>
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <span class="badge text-uppercase fw-semibold" style="background-color: #2e3d2c; border-radius:0px; font-size:0.75rem;">${ilan.kategori}</span>
+                                                ${aksiyonButonuHTML}
+                                            </div>
+                                            <h4 class="card-title serif-font fw-bold mb-2">${ilan.baslik}</h4>
+                                            <p class="card-text text-muted small mb-4">${ilan.aciklama}</p>
+                                        </div>
+                                        <div class="border-top pt-3 d-flex justify-content-between align-items-center" style="border-color: #f6f1eb !important;">
+                                            <span class="small fw-medium text-secondary">👤 ${ilan.sahibi}</span>
+                                            <span class="fw-bold px-2 py-1 small" style="background-color: #f6f1eb; color: #2e3d2c;">🤝 ${ilan.takas_istegi}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                } else {
+                    konteyner.innerHTML = `
+                        <div class="col-12 text-center py-5">
+                            <p class="text-muted fw-bold" style="font-size: 1.1rem;">"${aramaKelimesi}" aramasıyla eşleşen bir ilan bulunamadı.</p>
+                            <button onclick="window.location.reload()" class="btn btn-sm btn-custom-outline mt-2">Tüm İlanları Geri Getir</button>
+                        </div>
+                    `;
+                }
+            } catch (err) {
+                console.error("İlanlar çekilirken hata:", err);
+            }
+        }
+
+        async function ilanSil(id) {
+            if (confirm("Bu ilanı kalıcı olarak silmek istediğinize emin misiniz?")) {
+                try {
+                    const response = await fetch(`/api/ilanlar/${id}`, { method: 'DELETE' });
+                    if (response.ok) {
+                        alert("İlan başarıyla silindi.");
+                        window.location.reload();
+                    } else {
+                        alert("İlan silinirken bir hata oluştu.");
+                    }
+                } catch (err) {
+                    console.error("Silme hatası:", err);
+                }
+            }
+        }
+
+        function cikisYap() {
+            localStorage.clear(); 
+            window.location.href = "giris.html"; 
+        }
+    </script>
+</body>
+</html>
