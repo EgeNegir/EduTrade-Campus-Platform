@@ -24,10 +24,4 @@ EduTrade, üniversite kampüsündeki öğrencilerin kendi aralarında ders notu,
 <img width="1919" height="1079" alt="Ekran görüntüsü 2026-05-23 222845" src="https://github.com/user-attachments/assets/f43fe82f-5a0f-4ac6-94d9-423f1c956476" />
 
 
-## ⚙️ Kurulum ve Çalıştırma
 
-Projeyi yerel makinenizde (localhost) çalıştırmak için aşağıdaki adımları izleyebilirsiniz:
-
-1. Repoyu bilgisayarınıza klonlayın:
-```bash
-git clone https://github.com/EgeNegir/EduTrade-Campus-Platform.git
